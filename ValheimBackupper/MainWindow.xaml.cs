@@ -58,8 +58,11 @@ namespace ValheimBackupper
         {
             //Note: We intend to watch only the "Worlds" and "Characters" folders
             if (
-                args.FullPath.StartsWith(Path.Combine(valheimHomeDirectory, "worlds"), StringComparison.InvariantCultureIgnoreCase) || 
-                args.FullPath.StartsWith(Path.Combine(valheimHomeDirectory, "characters"), StringComparison.InvariantCultureIgnoreCase)
+                (
+                    args.FullPath.StartsWith(Path.Combine(valheimHomeDirectory, "worlds"), StringComparison.InvariantCultureIgnoreCase) ||
+                    args.FullPath.StartsWith(Path.Combine(valheimHomeDirectory, "characters"), StringComparison.InvariantCultureIgnoreCase)
+                ) &&
+                Path.GetFileName(args.Name) != "steam_autocloud.vdf"
                 )
             {
                 dispatcherTimer.Stop();
@@ -91,7 +94,7 @@ namespace ValheimBackupper
         {
             WriteToConsole("Backup Started ...");
 
-            var backupDirectory = DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss");
+            var backupDirectory = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
 
             try
             {
